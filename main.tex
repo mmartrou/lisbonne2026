@@ -1,102 +1,13 @@
 \input{entete}
 
 \title{Atelier à Lisbonne sur \LaTeX}
-\author{Guillaume Martrou}
+\author{Guillaume Martrou\\guillaume.martrou@lfmadrid.org}
 \date{\today}
+
+\noprintanswers
 
 \begin{document}
 
 \maketitle
-
-\tableofcontents
-
-\section{Introduction à \LaTeX}
-
-\subsection{Des exemples}
-
-Texte en \textit{italique}.
-Texte en \textbf{gras}.
-Texte en \textbf{\textit{gras et italique}}.
-Texte en emphase en fonction du contexte. Ici \emph{ce mot}.
-\textbf{Dans cette phrase, \emph{ce mot}}.
-\textit{Dans cette phrase, \emph{ce mot}}.
-
-\begin{lstlisting}[language=Python, caption=Exemple python]
-def sommeEntiers(n):
-    for i in range(n+1):
-        resultat += i
-return resultat
-\end{lstlisting}
-
-\section{Une section numérotée}
-\subsection{Une sous section numérotée}
-\subsection*{Une sous section non numérotée}
-\section*{Une section non numérotée}
-\section{Encore une section}
-
-\subsection{Listes}
-
-\begin{itemize}
-    \item Premier élément
-    \item Deuxième élément 
-    \begin{itemize}
-        \item Sous élément
-        \item sous élément
-    \end{itemize}
-    \item Autre
-\end{itemize}
-
-\begin{enumerate}
-   \item Premier élément
-    \item Deuxième élément 
-    \begin{enumerate}
-        \item Sous élément
-        \begin{enumerate}
-            \item Sous élément
-            \item sous élément
-        \end{enumerate}
-        \item sous élément
-    \end{enumerate}
-    \item Autre 
-\end{enumerate}
-
-\subsection{Feuilles de calculs}
-
-\begin{spreadtab}{{tabular}{ccccc}}
-1 & & & & \\
-a1 & a1 & & & \\
-a2 & a2+b2 & b2 & & \\
-a3 & a3+b3 & b3+c3 & c3 & \\
-a2 & a4+b4 & b4+c4 & c4+d4 & d4
-\end{spreadtab}
-
-$
-\begin{spreadtab}{{matrix}{}}
-1\\
-[0,-1] & [-1,-1]\\
-[0,-1] & [-1,-1]+[0,-1] & [-1,-1]\\
-[0,-1] & [-1,-1]+[0,-1] & [-1,-1]+[0,-1] & [-1,-1]\\
-[0,-1] & [-1,-1]+[0,-1] & [-1,-1]+[0,-1] & [-1,-1]+[0,-1] & [-1,-1]
-\end{spreadtab}
-$
-
-Table de multiplication utilisant une feuille de calcul :
-
-\begin{spreadtab}{{tabular}{|c|*{10}{c}|}}
-\hline
-@$\times$           & 1                     & \STcopy{>}{b1+1}  & & & & & & & & \\
-\hline
-1                   & \STcopy{>,v}{!a2*b!1} &                   & & & & & & & & \\
-\STcopy{v}{a2+1}    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-                    &                       &                   & & & & & & & & \\
-\hline
-\end{spreadtab}
 
 \end{document}
