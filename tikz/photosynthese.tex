@@ -1,0 +1,73 @@
+\pgfplotstableread[col sep=comma]{mesures.csv}\mydata
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=0.9\textwidth,
+        height=0.6\textwidth,
+        xlabel={Distance à la source lumineuse (cm)},
+        ylabel={Taux de photosynthèse (mm$^3$ O$_2$/min)},
+        title={Influence de la distance à la source lumineuse sur la photosynthèse},
+        grid=major,
+        xmin=0, xmax=100,
+        ymin=0, ymax=7,
+        xtick={0,20,40,60,80,100},
+        ytick={0,1,2,3,4,5,6,7},
+        tick label style={font=\small},
+        label style={font=\small}
+    ]
+    
+    % Graphique des points expérimentaux
+    \addplot[
+        only marks,
+        mark=*,
+        mark size=3pt,
+        color=blue
+    ] table[
+        x=Distance,
+        y=Photosynthese,
+        col sep=comma
+    ] {mesures.csv};
+    \addlegendentry{Données expérimentales}
+    
+    \addplot[red, thick, smooth] 
+    table[x=Distance, y=Photosynthese] {\mydata};
+    \addlegendentry{Courbe lissée}
+    
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Résultats expérimentaux}
+    \label{fig:resultats}
+\end{figure}
+
+\section*{Tableau des mesures}
+
+\begin{center}
+\pgfplotstabletypeset[
+    col sep=comma,
+    string type,
+    columns={Distance,Photosynthese},
+    columns/Distance/.style={
+        column name={Distance (cm)},
+        dec sep align
+    },
+    columns/Photosynthese/.style={
+        column name={Production O$_2$ (mm³/min)},
+        dec sep align,
+        precision=1,
+        dec sep={,},
+        fixed,          % ← Ajouter
+        fixed zerofill, % ← Ajouter
+    },
+    every head row/.style={
+        before row=\toprule,
+        after row=\midrule
+    },
+    every last row/.style={
+        after row=\bottomrule
+    },
+    every even row/.style={
+        before row={\rowcolor{blue!5}}
+    }
+]{mesures.csv}
+\end{center}
