@@ -1,7 +1,6 @@
 % !TEX root = main.tex
 
-
-\documentclass{article}
+\documentclass{exam}
 \usepackage{graphicx} % Required for inserting images
 \usepackage[french]{babel}
 \usepackage{listings}
@@ -9,6 +8,28 @@
 \usepackage{spreadtab}
 \usepackage{amsmath}
 \usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{pgf-pie}
+\usepackage{bohr}
+\usetikzlibrary{optics}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{calc}
+\usetikzlibrary{backgrounds}
+\tikzset{cross/.style={cross out, draw=black, fill=none, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={10pt}}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Atelier Lisbonne},
+    pdfpagemode=FullScreen,
+    }
+\usepackage[margin=2cm]{geometry}
+\usepackage{media9}
+\usepackage{tabularx}
+\usepackage{biocon}
+\usepackage{pgf-spectra}
+\usepackage{verbatim}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -35,3 +56,94 @@
 
 %"mystyle" code listing set
 \lstset{style=mystyle}
+\newcommand{\soll}[1]{%
+\ifprintanswers
+        #1%
+\fi
+}
+
+% Définition de la macro TikZ
+\newcommand{\drawOpticsLens}[3]{%
+    % Paramètres : #1 = tailleObjet, #2 = distanceImage, #3 = focale
+    \begin{tikzpicture}[use optics]
+
+    % === Paramètres donnés ===
+ %   \pgfmathsetmacro{\tailleObjet}{#1}
+ %   \pgfmathsetmacro{\distanceImage}{#2}
+ %   \pgfmathsetmacro{\focale}{#3}
+
+    % Calcul automatique des autres valeurs
+  %  \pgfmathsetmacro{\tailleImage}{\distanceImage*\tailleObjet/\focale}
+  %  \pgfmathsetmacro{\distanceObjet}{\focale*\tailleObjet/\tailleImage}
+ %   \pgfmathsetmacro{\hauteurIntersection}{\focale*\tailleObjet/\distanceObjet}
+
+    \pgfmathsetmacro{\tailleObjet}{#1}
+    \pgfmathsetmacro{\focale}{#2}
+    \pgfmathsetmacro{\distanceObjet}{#3}
+    
+    \pgfmathsetmacro{\tailleImage}{\focale*\tailleObjet/\distanceObjet}
+    \pgfmathsetmacro{\distanceImage}{\tailleImage*\focale/\tailleObjet}
+    \pgfmathsetmacro{\hauteurIntersection}{\focale*\tailleObjet/\distanceObjet}
+    \pgfmathsetmacro{\tailleLentille}{1.2*(\tailleObjet+\tailleImage)}
+    
+    % === Lentille ===
+    \node[lens, draw,
+          draw focal points={minimum width=5pt,minimum height=5pt},
+          focal length=\focale cm,
+          object height=\fpeval{\tailleLentille}cm
+          ] (L) at (0,0) {};
+
+    % === Objet ===
+    \coordinate (A) at ($(L.west focus)+(-\distanceObjet cm,0)$);
+    \coordinate (B) at ($(L.west focus)+(-\distanceObjet cm,+\tailleObjet)$);
+    \node[below=0.1cm] at (A) {A};
+    \node[left=0.1cm] at (B) {B};
+    \draw[->,thick,blue] (A) -- (B);
+
+    % === Image ===
+    \coordinate (AA) at ($(L.east focus)+(\distanceImage cm,0)$);
+    \coordinate (BB) at ($(L.east focus)+(\distanceImage cm,-\tailleImage cm)$);
+    \node[above=0.1cm] at (AA) {A'};
+    \node[right=0.1cm] at (BB) {B'};
+    \draw[->,thick,blue] (AA) -- (BB);
+
+    % === Foyers et axe optique ===
+    \node[below=0.2cm] at (L.west focus) {F};
+    \node[below=0.2cm] at (L.east focus) {F'};
+    \node[above] at ($(A)+(1.2cm,0)$) {axe optique $\Delta$};
+    \draw[dashed, thick] ($(A)+(-0.5cm,0)$) -- ($(AA)+(0.5cm,0)$);
+    \node[below=0.2cm, left=0] at (0,0) {O};
+
+    % === Rayons principaux ===
+    \draw[blue] (B) -- (0,\tailleObjet) -- (BB);
+    \draw[red] (B) -- (BB);
+    \draw[green] (B) -- (0,-\hauteurIntersection) -- (BB);
+        
+    % === Grille dynamique ===
+    \pgfmathsetmacro{\margin}{1} % marge autour de l'objet et de l'image
+    \begin{pgfonlayer}{background}
+    \draw[step=1.0, yellow, thin] 
+        ($(B)+(-\margin,\margin)$) grid ($(BB)+(\margin,-\margin)$);
+    \end{pgfonlayer}
+
+    
+
+    \end{tikzpicture}
+}
+
+\newcommand{\red}{\.[{.style={draw=red,fill=red}}]} % red dot for single bond in draft mode
+\newcommand{\redd}{\:[{.style={draw=red,fill=red}}]}% red dots for double bond in draft mode
+\newcommand{\draftlp}{\:}   % draft mode for lone pair
+\usepackage{forest}
+\usepackage{siunitx}
+\sisetup{locale=FR,output-decimal-marker={,}}
+\usepackage{elements}
+\usepackage{chemfig}
+\usepackage{upgreek}
+\usepackage{chemgreek}
+\usepackage{chemmacros}
+
+
+\unframedsolutions
+\renewcommand{\solutiontitle}{}
+\SolutionEmphasis{\color{red}}
