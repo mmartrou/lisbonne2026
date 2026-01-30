@@ -10,8 +10,87 @@
 
 \maketitle
 
-\end{document}
+\tableofcontents
 
+\section{Introduction}
 
+\subsection{Mise en forme}
+Voici la \textbf{première} \textit{phrase} de l'atelier sur \LaTeX. Les deux derniers mots de cette phrase sont \textcolor{red}{en rouge}.
+
+Comme il s'agit d'un langage de programmation, on peut écrire le nombre \numberstringnum{4242424242} en toute lettre facilement. Lister beaucoup de valeurs ayant la même unité comme \qtylist{1;2;3;4;5;6;8}{\m\per\s\squared}. Et noter rapidement des puissances de 10 comme \num{3e578}.
+
+\subsection{Des tableaux et des images}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.25\linewidth]{Photosynthese.png}
+    \caption{Schéma de la photosynthèse}
+    \label{fig:photosynthese}
+\end{figure}
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        Symbole de l'élément & numéro atomique (Z) \\
+        H & 1 \\
+        C & 6 \\
+    \end{tabular}
+    \caption{Numéro atomique d'éléments chimiques}
+    \label{tab:numeroAtomique}
+\end{table}
+
+On peut    laisser     autant   d'espaces que l'on veut. Et On
+    peut
+    écrire
+    une
+    phrase
+    sur
+    plusieurs
+    lignes.
+
+\LaTeX{} essaye de :
+\begin{enumerate}
+    \item rendre le document le mieux agencé possible.
+    \item placer les images et les tableaux au meilleur endroit.
+\end{enumerate}
+
+Et il permet de :
+
+\begin{itemize}
+    \item référencer les images, comme l'image \ref{fig:photosynthese}.
+    \item et les tableaux, comme le tableau \ref{tab:numeroAtomique}.
+\end{itemize}
+
+\section{Écrire des mathématiques}
+
+\subsection{En ligne}
+
+On peut ajouter, en ligne, des équations comme $\int \cos(x) dx = \sin(x)$. 
+
+\subsection{Maths en valeur !}
+
+\[
+E = \dfrac{mc^2}{1-\frac{v^2}{c^2}}
+\]
+
+\begin{align*}
+    P   &= m \times g\\
+        &= \qty{10}{\kg} \times \qty{9.81}{\N\per\kg}\\
+        &= \qty{98.1}{\N}
+\end{align*}
+
+\section{Autres packages}
+
+\subsection{tikz}
 \drawOpticsLens{2}{3.0}{4.0}
+
+\input{tikz/photosynthese}
+
+\subsection{chemfig, chemmacros et elements}
+
+On peut noter facilement les différents isotopes du lithium avec \isotope{Li} ou \isotope{8,Li}, écrire une équation de réaction avec \ch{CH4 + 2 O2 -> CO2 + 2 H2O}. La configuration électronique du plomb : \elconf{Pb}. Ou le schéma d'une molécule comme le fluorure d'hydrogène :
+
+\chemfig{H-F}
+
 \chemfig{H-C(-[2]H)(-[6]H)-H}
+
+\end{document}
